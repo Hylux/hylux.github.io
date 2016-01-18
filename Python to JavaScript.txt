@@ -1,0 +1,23 @@
+Conditions are always in ()
+Actions of Conditions in {}
+Use ; at end of lines
+== becomes ===
+print becomes console.log
+To print part of string do "".substring(x,y)
+Variables x = 1 becomes var x = 1
+len() becomes .length
+def function(x): becomes function(x) {}
+elif becomes else if
+and becomes &&
+or becomes ||
+for loop: for (var counter = 1; counter < 11; counter++)
+lis becomes arrays
+
+if x == 1:
+	print x
+
+BECOMES
+
+if (x === 1) {
+	console.log(x);
+}

@@ -12,16 +12,16 @@ def print_board(board):
 print "Let's play Battleship!"
 print_board(board)
 
-def random_row(board):
+def random_col(board):
     return randint(1, len(board))
 
-def random_col(board):
+def random_row(board):
     return randint(1, len(board[0]))
 
 ship_row = random_row(board)
 ship_col = random_col(board)
-print ship_row
-print ship_col
+##print ship_row
+##print ship_col
 
 for turn in range(4):
     print "Turn ", turn + 1
