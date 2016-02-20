@@ -1,0 +1,146 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <title>Pong</title>
+    <link href="/css/pushbullet.css" rel="stylesheet">
+	<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+	
+	<canvas width="1000" height="600" id="bong"></canvas>
+  
+<script type="text/javascript">
+var l_p = {x:0,y:100,width:30,height:150};
+var r_p = {x:970,y:100,width:30,height:150};
+var ball = {x:(r_p.x-l_p.x)/2,y:200,radius:20}
+var speed=100,step=0.1;
+var map = []; 
+
+window.requestAnimFrame = (function(callback) {
+	return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+	function(callback) {
+		window.setTimeout(callback, 1000 / 60);
+	};
+})();
+
+function update(){
+	window.c = document.getElementById("bong"); //Changed var to window.
+	window.ctx = c.getContext("2d"); //Changed var to window.
+	ctx.clearRect(0, 0, c.width, c.height)
+	ctx.fillStyle = "black";
+	ctx.fillRect(l_p.x,l_p.y,l_p.width,l_p.height);
+	ctx.fillRect(r_p.x,r_p.y,r_p.width,r_p.height);
+	ctx.beginPath();
+	ctx.arc(ball.x,ball.y,ball.radius,0,2*Math.PI);
+	ctx.stroke();
+	requestAnimFrame(function() {
+		update();
+	});
+}
+
+//paddle 1 - left paddle, paddle 2 - right paddle
+//up - 1, down - -1
+function movePaddle(paddle,direction){
+	if (direction==-1){
+		for (var i=0;i<=speed;i++){
+			//console.log(l_p);
+			if (paddle==1) l_p.y+=step;
+			else if (paddle==2) r_p.y+=step;
+			//update();
+		}
+	}
+	else if (direction==1){
+		for (var i=0;i<=speed;i++){
+			if (paddle==1) l_p.y-=step;
+			else if (paddle==2) r_p.y-=step;
+			//update();
+		}
+	}
+}
+
+/*function moveBall(x,y){
+	var m=(y-ball.y)/(x-ball.x);
+	var c=ball.y-m*ball.x;
+	for (var i=ball.x;i<=$("canvas").width()&&i>=0;(x>ball.x?i+=step:i-=step)){
+		//console.log(ball);
+		ball.x=i;
+		ball.y=m*ball.x+c;
+	}
+}*/
+
+//<ball> it works! but keeps flickering
+var x=0;
+var y=0;
+var m=(y-ball.y)/(x-ball.x);
+var a=ball.y-m*ball.x;
+/*if (x-ball.x > 0) {
+	var dx=step;
+}
+else {
+	var dx=-step;
+}
+if (y-ball.y > 0) {
+	var dy=m*step*10+a;
+}
+else {
+	var dy=-(m*step*10+a);
+}*/
+dx = step*speed
+dy = m*step*speed+a
+
+/*function init() {
+	setInterval(draw,15);
+}*/
+
+function draw() {
+	ctx.beginPath();
+	ctx.fillStyle= "#000fff";
+	ctx.arc(ball.x,ball.y,ball.radius,0,Math.PI*2);
+	ctx.closePath();
+	ctx.fill();
+	if (ball.x - ball.radius <= 0 || ball.x + ball.radius >= c.width || (ball.x - ball.radius <= l_p.x + l_p.width && ball.y >= l_p.y && ball.y <= l_p.y + l_p.height)) {
+		dx=-dx
+		ball.x+=dx;
+	}
+	else  {
+	ball.x+=dx
+	}
+	if (ball.y - ball.radius <= 0 || ball.y + ball.radius >= c.height) {
+		dy=-dy
+		ball.y+=dy;
+	}
+	else {
+		ball.y+=dy
+	}
+	requestAnimFrame(function() {
+		draw();
+	});
+}
+
+//</ball>
+
+$(document).ready(function(){
+	update();
+	var y_bound=$("canvas").height()-l_p.height;
+	$(document).keydown(function(e) {
+		/*if(e.which == 87 && l_p.y-speed*step>=0) movePaddle(1,1);
+		else if (e.which==83 && l_p.y+speed*step<=y_bound) movePaddle(1,-1);
+		else if (e.which==38 && r_p.y-speed*step>=0) movePaddle(2,1);
+		else if (e.which==40 && r_p.y+speed*step<=y_bound) movePaddle (2,-1);*/
+	});
+	
+	onkeydown = onkeyup = function(e){
+    map[e.keyCode] = e.type == 'keydown';
+	if(map[87] && l_p.y-speed*step>=0) movePaddle(1,1);
+	if (map[83] && l_p.y+speed*step<=y_bound) movePaddle(1,-1);
+	if (map[38] && r_p.y-speed*step>=0) movePaddle(2,1);
+	if (map[40] && r_p.y+speed*step<=y_bound) movePaddle (2,-1);
+	}
+});
+
+
+
+</script>
+
+</head>
+  <body>
+  
+
+</body></html>

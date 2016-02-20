@@ -1,0 +1,39 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <title>Pong</title>
+	<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="pong.css">
+	</head>
+
+	<h1 class="heading">
+		<div id="p1">0</div>
+		<div> - PONG - </div>
+		<div id="p2">0</div>
+	</h1>
+	
+  	<h3>
+		Paddle Speed<input type="range" id="p_speed" min="1" max="64" value="32">
+		Ball Speed<input type="range" id="ball_speed" min="1" max="64" value="32">
+	</h3>
+	
+	<canvas width="700" height="500" id="bong">
+		<script type="text/javascript" src="pong.js"></script>
+	</canvas>
+	
+	<h3>
+		<div id="controls">Left</div> - Controls - <div id="controls">Right</div>
+	</h3>
+	
+	<h3>
+		<div>
+			UP : Q
+			<br>
+			DOWN : A
+		</div>
+		<div id="vertRule"></div>
+		<div>
+			UP : P
+			<br>
+			DOWN : L
+		</div>
+	</h3>

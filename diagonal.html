@@ -1,0 +1,50 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <title>Pong</title>
+    <link href="/css/pushbullet.css" rel="stylesheet">
+	<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+	
+	<canvas width="1000" height="600" id="bong"></canvas>
+
+<script>
+var context;
+
+function setupAnimCanvas() {
+    var canvas = document.getElementById('assignmenttwoCanvas');
+    if (canvas.getContext) {
+        ctx = canvas.getContext('2d');
+        //setInterval('draw();', 20); //don't use this
+        img = new Image();x
+        img.onload = function(e) {
+            draw();          //use this instead..
+        }
+        img.src = '../images/dragon.png';
+        //animation();
+        draw(); //as we don't have an image to load, call here
+                //remove when image is used instead
+    }
+}
+var startPos = [500, 500];
+var endPos = [0, 0];
+var dx = -3, dy = -3;
+var x = startPos[0], y = startPos[1];
+
+function draw() {
+    ctx.clearRect(0, 0, 500, 500);
+    //drawBackground();
+    //ctx.drawImage(img, x, y);
+    ctx.fillRect(x, y, 20, 20); //for demo as no image
+    x += dx;
+    y += dy;
+    
+    if (x < endPos[0] || x > startPos[0] ||
+        y < endPos[1] || y > startPos[1] ) {
+        dx = -dx;
+        dy = -dy;
+    }
+    //moveit();
+    setTimeout(draw, 16);
+}
+setupAnimCanvas();
+
+</script>
